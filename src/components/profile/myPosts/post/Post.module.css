@@ -1,0 +1,8 @@
+.item{
+ color: green;
+}
+.item img {
+    width: 50px;
+    height: 29px;
+    border-radius: 30px;
+}
