@@ -3,7 +3,7 @@ import s from "./Post.module.css";
 
 export const Post = (props) => {
     return (
-        <div className={s.item}>
+        <div  className={`${s.item} ${s.posts}`}>
             <img
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTqisPvIQMX-I9nFF4I6CRQk17tag_lpk14iw&usqp=CAU"
                 alt="avatar"/>
@@ -11,6 +11,6 @@ export const Post = (props) => {
             <div>
                 <span>like {props.likesCount}</span>
             </div>
-        </div>
+         </div>
     )
 }
