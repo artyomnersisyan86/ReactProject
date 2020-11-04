@@ -4,8 +4,6 @@ import DialogItem from "./dialogItem/DialogItem";
 import Message from "./message/Message";
 
 const Dialogs = (props) => {
-
-
     let dialogsElements = props.state.dialogds.map((d, i) => {
         return <DialogItem key={i} name={d.name} id={d.id}/>
     })
@@ -15,12 +13,11 @@ const Dialogs = (props) => {
     let newMessage = React.createRef();
 
     let addMessage = () => {
-        props.addNewMessageFunc();
-        // alert(newText)
+        props.dispatch({type: "ADD-NEW-MESSAGE-FUNC"});
     }
     let onMessageChange = () => {
         let newText = newMessage.current.value;
-        props.updateNewMessage(newText)
+        props.dispatch({type: "UPDATE-NEW-MESSAGE", newMessageText: newText})
     }
     return (
         <div className={s.dialogs}>
@@ -34,8 +31,6 @@ const Dialogs = (props) => {
                     <button onClick={addMessage}>addPost</button>
                 </div>
             </div>
-
-
         </div>
     )
 }
