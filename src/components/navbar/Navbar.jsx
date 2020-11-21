@@ -10,6 +10,7 @@ const Navbar = () => {
             <div className={s.item}><NavLink activeClassName={s.activeLink} to='/news'>News </NavLink></div>
             <div className={s.item}><NavLink activeClassName={s.activeLink} to='/music'> Music</NavLink></div>
             <div className={s.item}><NavLink activeClassName={s.activeLink} to='/settings'> Setings</NavLink></div>
+            <div className={s.item}><NavLink activeClassName={s.activeLink} to='/users'> Users</NavLink></div>
         </nav>
     )
 }
