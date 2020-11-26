@@ -5,7 +5,7 @@ export const ProfileInfo = (props) => {
     if(!props.profile){
         return <Preloader/>
     }
-    console.log(props.profile.photos.large)
+
     return (
         <div>
             <div>
