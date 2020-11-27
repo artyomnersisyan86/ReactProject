@@ -14,6 +14,11 @@ export const usersApi = {
         ).then(response => {
             return response.data
         })
+    },
+    auth(){
+        return instance.get(`auth/me`).then(response=>{
+            return response.data
+        })
     }
 };
 //follow
