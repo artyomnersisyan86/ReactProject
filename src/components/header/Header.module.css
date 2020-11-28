@@ -6,9 +6,16 @@
 .header img {
     width: 20px;
 }
-.loginBlock{
-    float: right;
+
+.loginBlock {
+    float: left;
+    color: wheat;
+    cursor: pointer;
+    padding-right: 12px;
+
 }
-.loginBlock a{
+
+.loginBlock a {
     color: white;
+    cursor: pointer;
 }

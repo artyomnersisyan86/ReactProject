@@ -15,12 +15,15 @@ export const usersApi = {
             return response.data
         })
     },
-    auth(){
-        return instance.get(`auth/me`).then(response=>{
+
+};
+export const authAPI={
+    me() {
+        return instance.get(`auth/me`).then(response => {
             return response.data
         })
     }
-};
+}
 //follow
 // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id} `, {},
 //     {

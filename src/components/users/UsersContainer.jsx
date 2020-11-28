@@ -1,36 +1,16 @@
 import React from "react"
 import {connect} from "react-redux"
-import {
-    follow, getUsers,
-    setCurrentPage,
-    // setTotalUsersCount,
-    // setUsers,
-    // toggleIsFetching,
-    toggleFollowingProgress,
-    unfollow
-} from "../../redux/usersReducer";
-// import UsersAPIComponent from "./UsersAPIComponent";
+import { follow, getUsers, setCurrentPage, toggleFollowingProgress, unfollow } from "../../redux/usersReducer";
 import Users from "./Users";
-// import * as axios from "axios"
 import Preloader from "../common/preloader/Preloader";
-
-// import {usersApi} from "../../api/api";
-
-
+import {compose} from "redux"
+import { withAuthRedirect } from "../hoc/withAuthRedirect";
 class UsersContainer extends React.Component {
     // constructor(props) {
     //     super(props);
     // }
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
-        // this.props.toggleIsFetching(true);
-        // usersApi.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-        //     console.log(data);
-        //     console.log("start");
-        //     this.props.setUsers(data.items);
-        //     this.props.toggleIsFetching(false);
-        //     this.props.setTotalUsersCount(data.totalCount);
-        // })
     }
 
     onPageChanged = (pageNumber) => {
@@ -65,13 +45,14 @@ let mapStateToProps = (state) => {
         followingProgress: state.usersPage.followingProgress,
     }
 }
-export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setCurrentPage,
-    // setUsers,
-    // setTotalUsersCount,
-    // toggleIsFetching,
-    toggleFollowingProgress,
-    getUsers
-})(UsersContainer);
+// let connectDeclaration= connect(mapStateToProps, {
+//     follow,
+//     unfollow,
+//     setCurrentPage,
+//     toggleFollowingProgress,
+//     getUsers
+// })(UsersContainer);
+export default compose(
+    withAuthRedirect,
+    connect(mapStateToProps, {follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers})
+)(UsersContainer)
