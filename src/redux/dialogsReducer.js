@@ -1,5 +1,4 @@
 const ADD_NEW_MESSAGE_FUNC = "ADD-NEW-MESSAGE-FUNC";
-const UPDATE_NEW_MESSAGE = "UPDATE-NEW-MESSAGE";
 let initialState = {
     dialogds: [
         {id: 1, name: "Armen"},
@@ -14,7 +13,6 @@ let initialState = {
         {id: 2, message: "How are you"},
         {id: 3, message: "I`m fine, thank you"},
     ],
-    addNewMessage: "hello New Message",
 };
 
 const
@@ -23,18 +21,11 @@ const
             case ADD_NEW_MESSAGE_FUNC: {
                 let newMessage = {
                     id: 4,
-                    message: state.addNewMessage
+                    message: action.addNewMessage
                 };
-              return {
+                return {
                     ...state,
-                    addNewMessage: '',
                     messages: [...state.messages, newMessage]
-                };
-            }
-            case UPDATE_NEW_MESSAGE: {
-                return  {
-                    ...state,
-                    addNewMessage: action.newMessageText
                 };
             }
             default :
@@ -42,15 +33,10 @@ const
         }
     };
 
-export const addNewMessageFuncCreator = () => {
+export const addNewMessageFuncCreator = (addNewMessage) => {
     return {
-        type: ADD_NEW_MESSAGE_FUNC
-    }
-}
-export const updateNewMessageCreator = (newText) => {
-    return {
-        type: UPDATE_NEW_MESSAGE,
-        newMessageText: newText
+        type: ADD_NEW_MESSAGE_FUNC,
+        addNewMessage
     }
 }
 export default dialogsReducer;
