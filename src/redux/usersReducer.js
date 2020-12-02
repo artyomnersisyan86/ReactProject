@@ -1,4 +1,4 @@
-import {followApi, usersApi} from "../api/api";
+import { followApi, usersApi } from "../api/api";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -69,17 +69,18 @@ const usersReducer = (state = initialState, action) => {
     }
 };
 const followSuccess = (userId) => ({type: FOLLOW, userId})
- const unfollowSuccess = (userId) => ({type: UNFOLLOW, userId})
+const unfollowSuccess = (userId) => ({type: UNFOLLOW, userId})
 const setUsers = (users) => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage) => ({type: SET_CURENT_PAGE, currentPage})
 const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USER_COUNT, totalUsersCount})
 const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
 export const toggleFollowingProgress = (isFetching, userId) => ({type: TOGGLE_FOLLOWING_PROGRESS, isFetching, userId})
 
-export const getUsers = (currentPage, pageSize) => {
+export const requestUsers = (page, pageSize) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true));
-        usersApi.getUsers(currentPage, pageSize).then(data => {
+        dispatch(setCurrentPage(page));
+        usersApi.getUsers(page, pageSize).then(data => {
             dispatch(setUsers(data.items));
             dispatch(toggleIsFetching(false));
             dispatch(setTotalUsersCount(data.totalCount));
