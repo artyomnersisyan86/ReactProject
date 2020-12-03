@@ -3,7 +3,7 @@ import { Post } from "./post/Post";
 import s from "./Mypost.module.css"
 import AddNewPostForm from "./addNewPostForm/AddNewPostForm";
 
-export const MyPosts = (props) => {
+export const MyPosts = React.memo( props => {
     let postsElements = props.posts.map((p, i) => {
         return <Post key={i} message={p.message} likesCount={p.likesCount}/>
     })
@@ -17,7 +17,7 @@ export const MyPosts = (props) => {
             {postsElements}
         </div>
     )
-}
+})
 
 
 
