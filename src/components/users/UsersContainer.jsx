@@ -7,10 +7,11 @@ import { compose } from "redux"
 import {
     getCurrentPage, getFollowingProgress,
     getIsFetching,
-    getTotalUsersCount,
+    getTotalUsersCount, getUsers,
     getUsersPageSize,
-    getUsers
+
 } from "../../redux/userSelectors";
+import { withRouter } from "react-router-dom";
 
 class UsersContainer extends React.Component {
 
@@ -60,5 +61,7 @@ let mapStateToProps = (state) => {
     }
 }
 export default compose(
+    // withRouter,
+    withRouter,
     connect(mapStateToProps, {follow, unfollow, toggleFollowingProgress, getUsers: requestUsers})
 )(UsersContainer)

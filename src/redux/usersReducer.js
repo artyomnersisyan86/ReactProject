@@ -15,9 +15,12 @@ let initialState = {
     currentPage: 1,
     isFetching: false,
     followingProgress: [],
+    fake: 10
 };
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
+        case "FAKE":
+            return {...state, fake: state.fake + 1}
         case FOLLOW:
             return {
                 ...state,
