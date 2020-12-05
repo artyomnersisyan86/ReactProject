@@ -1,4 +1,4 @@
-const ADD_NEW_MESSAGE_FUNC = "ADD-NEW-MESSAGE-FUNC";
+const ADD_NEW_MESSAGE_FUNC = "project/dialogsPage/ADD-NEW-MESSAGE-FUNC";
 let initialState = {
     dialogds: [
         {id: 1, name: "Armen"},

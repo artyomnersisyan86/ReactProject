@@ -1,7 +1,8 @@
 import { profileApi } from "../api/api";
-const ADD_POST = "ADD-POST";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const SET_STATUS = "SET_STATUS";
+
+const ADD_POST = "project/profilePage/ADD-POST";
+const SET_USER_PROFILE = "project/profilePage/SET_USER_PROFILE";
+const SET_STATUS = "project/profilePage/SET_STATUS";
 let initialState = {
     posts: [
         {id: 1, message: "Hello React", likesCount: "0"},
@@ -54,27 +55,23 @@ const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 const setStatus = (status) => ({type: SET_STATUS, status})
 
 export const getUserProfile = (userId) => {
-    return (dispatch) => {
-        profileApi.getProfile(userId).then(data => {
-            dispatch(setUserProfile(data));
-        })
+    return async (dispatch) => {
+        let data = await profileApi.getProfile(userId);
+        dispatch(setUserProfile(data));
     }
 }
 export const getUserStatus = (userId) => {
-    return (dispatch) => {
-        profileApi.getStatus(userId).then(response => {
-            dispatch(setStatus(response.data));
-        })
+    return async (dispatch) => {
+        let response = await profileApi.getStatus(userId);
+        dispatch(setStatus(response.data));
     }
 }
 export const updateUserStatus = (staus) => {
-    return (dispatch) => {
-
-        profileApi.updateStatus(staus).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(staus));
-            }
-        })
+    return async (dispatch) => {
+        let response = await profileApi.updateStatus(staus);
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(staus));
+        }
     }
 }
 
