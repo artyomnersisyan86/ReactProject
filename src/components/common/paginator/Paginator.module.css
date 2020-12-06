@@ -1,8 +1,36 @@
 .selectedPage{
     font-weight: bold;
-    font-size: 20px;
+    /*font-size: 20px;*/
+    border-radius: 5px;
+    border: 2px solid black;
+    padding: 2px;
 
 }
 .paginationCursor{
     cursor: pointer;
+    margin: 10px;
+}
+.paginatorPage{
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 2px;
+    margin: 1px;
+}
+.paginatorButton{
+    color: aqua;
+    margin: 3px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.paginatorLeftButtonBorderRadius{
+        border-radius: 30px 5px 5px 30px;
+        background-color: black;
+}
+.paginatorRightButtonBorderRadius{
+        border-radius: 10px 30px 30px 10px;
+        background-color: black;
+}
+.paginatorButton:hover{
+    color: grey;
+    background-color: yellow;
 }
