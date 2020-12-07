@@ -3,6 +3,7 @@ import { profileApi } from "../api/api";
 const ADD_POST = "project/profilePage/ADD-POST";
 const SET_USER_PROFILE = "project/profilePage/SET_USER_PROFILE";
 const SET_STATUS = "project/profilePage/SET_STATUS";
+const SET_PHOTO_ACCESS = "project/profilePage/SET_PHOTO_ACCESS";
 let initialState = {
     posts: [
         {id: 1, message: "Hello React", likesCount: "0"},
@@ -39,6 +40,12 @@ const profileReducer = (state = initialState, action) => {
                 profile: action.profile
             };
         }
+        case SET_PHOTO_ACCESS: {
+            return {
+                ...state,
+                profile: {...state.profile,photos:action.photos}
+            };
+        }
         default:
             return state
     }
@@ -53,6 +60,7 @@ export const addPostActionCreator = (newPostText) => {
 
 const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 const setStatus = (status) => ({type: SET_STATUS, status})
+const savePhotoAccess = (photos) => ({type: SET_PHOTO_ACCESS, photos})
 
 export const getUserProfile = (userId) => {
     return async (dispatch) => {
@@ -71,6 +79,14 @@ export const updateUserStatus = (staus) => {
         let response = await profileApi.updateStatus(staus);
         if (response.data.resultCode === 0) {
             dispatch(setStatus(staus));
+        }
+    }
+}
+export const savePhoto = (file) => {
+    return async (dispatch) => {
+        let response = await profileApi.savePhotoApi(file);
+        if (response.data.resultCode === 0) {
+            dispatch(savePhotoAccess(response.data.data.photos));
         }
     }
 }
