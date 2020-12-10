@@ -2,10 +2,15 @@
 /*    width: 1000px;*/
 /*    height: 400px;*/
 /*}*/
-.descriptionBlock{
+.descriptionBlock {
     padding: 10px;
 }
-.profilePhoto{
+
+.profilePhoto {
     max-width: 200px;
     border-radius: 50px 50px;
+}
+
+.contact {
+    padding-left: 10px;
 }
