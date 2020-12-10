@@ -23,12 +23,17 @@ export const authAPI = {
             return response.data
         })
     },
-    login(email, password, rememberMe = false) {
-        return instance.post(`auth/login`, {email, password, rememberMe})
+    login(email, password, rememberMe = false,captcha=null) {
+        return instance.post(`auth/login`, {email, password, rememberMe,captcha})
     },
     logout() {
         return instance.delete(`auth/login`)
     }
+}
+export const captchaAPI = {
+    captcha() {
+        return instance.get(`security/get-captcha-url`)
+    },
 }
 //follow
 // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id} `, {},
