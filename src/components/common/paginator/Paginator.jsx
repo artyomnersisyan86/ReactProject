@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import s from "./Paginator.module.css"
-
+import cn from "classnames"
 let Paginator = ({totalItemsCount, pageSize, onPageChanged, currentPage, portionSize = 10}) => {
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
     let pages = [];
@@ -15,9 +15,11 @@ let Paginator = ({totalItemsCount, pageSize, onPageChanged, currentPage, portion
     return (
         <div>
 
-            <div className={s.paginationCursor}>
+            {/*<div className={s.paginationCursor}>*/}
+            <div className={cn(s.paginationCursor)}>
                 {portionNumber > 1 &&
-                <button className={`${s.paginatorButton} ${s.paginatorLeftButtonBorderRadius}`} onClick={() => {
+                // <button className={`${s.paginatorButton} ${s.paginatorLeftButtonBorderRadius}`} onClick={() => {
+                <button className={cn(s.paginatorButton,s.paginatorLeftButtonBorderRadius)} onClick={() => {
                     setPortionNumber(portionNumber - 1)
                 }}>Prev</button>}
                 {pages.filter((p) => {
@@ -27,8 +29,12 @@ let Paginator = ({totalItemsCount, pageSize, onPageChanged, currentPage, portion
                         return <span key={p} onClick={(e) => {
                             onPageChanged(p)
                         }}
-                                     className={currentPage === p ? s.selectedPage : s.paginatorPage}>{p}</span>
-                    })}
+                                     // className={currentPage === p ? s.selectedPage : s.paginatorPage}>{p}</span>
+                                     className={cn({
+                                         [ s.selectedPage]:currentPage===p,
+                                     },s.paginatorPage
+                                     )}>{p}</span>
+                    })}}
                 {portionCount > portionNumber &&
                 <button className={`${s.paginatorButton} ${s.paginatorRightButtonBorderRadius}`} onClick={() => {
                     setPortionNumber(portionNumber + 1)

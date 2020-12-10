@@ -65,21 +65,34 @@ const savePhotoAccess = (photos) => ({type: SET_PHOTO_ACCESS, photos})
 
 export const getUserProfile = (userId) => {
     return async (dispatch) => {
-        let data = await profileApi.getProfile(userId);
-        dispatch(setUserProfile(data));
+        try {
+            let data = await profileApi.getProfile(userId);
+            dispatch(setUserProfile(data));
+        }catch (e){
+            console.log(getUserProfile,e)
+        }
     }
 }
 export const getUserStatus = (userId) => {
     return async (dispatch) => {
-        let response = await profileApi.getStatus(userId);
+        try {
+              let response = await profileApi.getStatus(userId);
         dispatch(setStatus(response.data));
+        }catch (e){
+            console.log("getUserStatus", e)
+        }
+
     }
 }
 export const updateUserStatus = (staus) => {
     return async (dispatch) => {
-        let response = await profileApi.updateStatus(staus);
-        if (response.data.resultCode === 0) {
-            dispatch(setStatus(staus));
+        try {
+            let response = await profileApi.updateStatus(staus);
+            if (response.data.resultCode === 0) {
+                dispatch(setStatus(staus));
+            }
+        } catch (error){
+            console.log(error)
         }
     }
 }
