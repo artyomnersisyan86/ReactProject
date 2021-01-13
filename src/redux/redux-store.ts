@@ -5,7 +5,7 @@ import sidebarReducer from "./sidebarReducer";
 import usersReducer from "./usersReducer";
 import authReducer from "./authReducer";
 import thunkMiddleWare from 'redux-thunk';
-import { reducer as formReducer } from 'redux-form'
+import {reducer as formReducer} from 'redux-form'
 import appReducer from "./appReducer";
 
 let rootReducers = combineReducers({
@@ -14,16 +14,19 @@ let rootReducers = combineReducers({
     sidebare: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form:formReducer,
-    app:appReducer
+    form: formReducer,
+    app: appReducer
 
 })
-type rootReducerType=typeof rootReducers
-export type AppStateType=ReturnType<rootReducerType>
+type rootReducerType = typeof rootReducers
+export type AppStateType = ReturnType<rootReducerType>
+
+type  PropertiesType<T> = T extends { [key: string]: infer U } ? U : never
+export type InferActionsType<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesType<T>>
 
 // @ts-ignore
-const composeEnchancers=window.__REDUX__DEVTOOLS__EXTENSIONS_COMPOSE||compose
-let store = createStore(rootReducers,composeEnchancers(applyMiddleware(thunkMiddleWare)))
+const composeEnchancers = window.__REDUX__DEVTOOLS__EXTENSIONS_COMPOSE || compose
+let store = createStore(rootReducers, composeEnchancers(applyMiddleware(thunkMiddleWare)))
 // @ts-ignore
 window.store = store
 
