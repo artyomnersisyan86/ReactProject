@@ -2,6 +2,7 @@ import React, {FC} from "react"
 import Paginator from "../common/paginator/Paginator";
 import User from "./User";
 import {UserType} from "../../types/types";
+import UserSearchForm from "./UserSearchForm";
 
 type PropsType = {
     totalUsersCount: number
@@ -18,6 +19,7 @@ type PropsType = {
 let Users: FC<PropsType> = ({onPageChanged, currentPage, totalUsersCount, pageSize, users, ...props}) => {
     return (
         <div>
+            <div><UserSearchForm/></div>
             <Paginator onPageChanged={onPageChanged} currentPage={currentPage}
                        totalItemsCount={totalUsersCount} pageSize={pageSize}/>
             <div>
@@ -31,4 +33,5 @@ let Users: FC<PropsType> = ({onPageChanged, currentPage, totalUsersCount, pageSi
         </div>
     )
 }
+
 export default Users;
