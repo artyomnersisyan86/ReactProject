@@ -1,8 +1,10 @@
-import React from "react";
+import React, {FC} from "react";
 import s from "./FormsControls.module.css"
-import { Field } from "redux-form";
+import {Field, WrappedFieldProps} from "redux-form";
+import {FieldValidatorsType} from "../utils/validators";
 
-export let Textarea = ({input, meta:{touched,error}, ...props}) => {
+
+export let Textarea: FC<WrappedFieldProps> = ({input, meta: {touched, error}, ...props}) => {
     const hasError = touched && error
     return (
         <div className={s.formsControls + " " + (hasError ? s.error : "")}>
@@ -11,7 +13,7 @@ export let Textarea = ({input, meta:{touched,error}, ...props}) => {
         </div>
     )
 }
-export let Input = ({input, meta:{touched,error}, ...props}) => {
+export let Input: FC<WrappedFieldProps> = ({input, meta: {touched, error}, ...props}) => {
     const hasError = touched && error
     return (
         <div className={s.formsControls + " " + (hasError ? s.error : "")}>
@@ -21,8 +23,10 @@ export let Input = ({input, meta:{touched,error}, ...props}) => {
     )
 }
 
-export const createFieldForm = (name, component, placeholder, props={}, validate,text="") => (
-    <div>
+export function createFieldForm <FormKeysType extends string>(name: FormKeysType, component: FC<WrappedFieldProps>,
+                                         placeholder: string, props = {},
+                                         validate: Array<FieldValidatorsType>, text = "") {
+    return <div>
         <Field
             name={name}
             component={component}
@@ -30,6 +34,5 @@ export const createFieldForm = (name, component, placeholder, props={}, validate
             {...props} validate={validate}
 
         />{text}
-    </div>
-
-)
+    </div>;
+}

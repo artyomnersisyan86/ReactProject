@@ -1,4 +1,4 @@
-import {authAPI, captchaAPI,} from "../api/api";
+import {authAPI, captchaAPI, ResultCodeEnum, ResultCodeForCaptchaEnum,} from "../api/api";
 import {stopSubmit} from 'redux-form'
 
 const SET_USER_DATA = "project/app/SET_USER_DATA";
@@ -27,7 +27,6 @@ const authReducer = (state = initialState, action: any): initialStateType => {
                 ...state,
                 ...action.payload,
             }
-
         default:
             return state
     }
@@ -43,7 +42,6 @@ type setAuthUserDataPayloadType = {
 type setAuthUserDataType = {
     type: typeof SET_USER_DATA
     payload: setAuthUserDataPayloadType
-
 }
 
 const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean): setAuthUserDataType => ({
@@ -61,22 +59,22 @@ const getCaptchaSuccess = (captcha: string): getCaptchaSuccessType => ({type: SE
 export const getAuthUserData = () => {
     return async (dispatch: any) => {
         let data = await authAPI.me();
-        if (data.resultCode === 0) {
+        if (data.resultCode === ResultCodeEnum.Success) {
             let {id, email, login} = data.data
             dispatch(setAuthUserData(id, email, login, true))
         }
     }
 }
-export const loginThunk = (email:string, password:string, rememberMe:boolean, captcha:string) => {
+export const loginThunk = (email: string, password: string, rememberMe: boolean, captcha: string) => {
     return async (dispatch: any) => {
-        let response = await authAPI.login(email, password, rememberMe, captcha)
-        if (response.data.resultCode === 0) {
+        let data = await authAPI.login(email, password, rememberMe, captcha)
+        if (data.resultCode === ResultCodeEnum.Success) {
             dispatch(getAuthUserData())
         } else {
-            if (response.data.resultCode === 10) {
+            if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
                 dispatch(getCaptcha())
             }
-            let messages = response.data.messages.length > 0 ? response.data.messages[0] : "Some Error"
+            let messages = data.messages.length > 0 ? data.messages[0] : "Some Error"
             dispatch(stopSubmit("Login", {_error: messages}))
         }
     }

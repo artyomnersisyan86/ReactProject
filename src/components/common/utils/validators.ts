@@ -3,14 +3,16 @@
 //     value && value.length > max ? `Must be ${max} characters or less` : undefined
 // const maxLength15 = maxLength(15)
 
-export const required = value => {
+export type FieldValidatorsType = (value: string | undefined) => string | undefined
+
+export const required: FieldValidatorsType = value => {
     if (value) {
         return undefined
     } else {
         return "Field is required"
     }
 }
-export const maxLengthCreator = max => value => {
+export const maxLengthCreator = (max: number): FieldValidatorsType => value => {
     if (value && value.length > max) {
         return `Must Be ${max} character or less`
     } else {
