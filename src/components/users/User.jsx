@@ -11,7 +11,7 @@ let User = ({user, followingProgress, follow, unfollow}) => {
                     <div>
                         <NavLink to={'/profile/' + user.id}>
                             <img src={user.photos.small != null ? user.photos.small : userPhotos} alt="avatar"
-                                         className={s.userPhoto}/>
+                                 className={s.userPhoto}/>
                                            </NavLink>
             </div>
                 <div>{user.followed ? <button disabled={followingProgress.some(id => id === user.id)} onClick={() => {
