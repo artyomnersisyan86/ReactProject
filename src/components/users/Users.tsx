@@ -11,30 +11,12 @@ import {
     getUsers,
     getUsersPageSize
 } from "../../redux/userSelectors";
+import {useHistory} from "react-router";
 
 type PropsType = {
-    // totalUsersCount: number
-    // pageSize: number
-    // currentPage: number
-    // onPageChanged: (pageNumber: number) => void,
     portionSize?: number
-    // users: Array<UserType>
-    // followingProgress: Array<number>
-    // follow: (id: number) => void,
-    // unfollow: (id: number) => void,
-    // onFilterChanged: (filter: FilterSearchType) => void
-
-
 }
-let Users: FC<PropsType> = ({
-                                // onPageChanged,
-                                // users,
-
-                                // currentPage,
-                                // totalUsersCount,
-                                // pageSize,
-                                ...props
-                            }) => {
+let Users: FC<PropsType> = () => {
     const totalUsersCount = useSelector(getTotalUsersCount)
 
     const currentPage = useSelector(getCurrentPage)
@@ -44,9 +26,8 @@ let Users: FC<PropsType> = ({
     const users = useSelector(getUsers)
     const followingProgress = useSelector(getFollowingProgress)
 
-    useEffect(() => {
-        dispatch(requestUsers(currentPage, pageSize, filter))
-    }, [])
+    const history = useHistory()
+
     const dispatch = useDispatch()
 
     const follow1 = (id: number) => {
@@ -63,7 +44,15 @@ let Users: FC<PropsType> = ({
     const onFilterChanged = (filter: FilterSearchType) => {
         dispatch(requestUsers(1, pageSize, filter))
     }
-
+    useEffect(() => {
+        history.push({
+            pathname: "/users",
+            search: `?term=${filter.term}&friend=${filter.friend}&currentPage=${currentPage}`,
+        })
+    }, [filter,currentPage,history])
+    useEffect(() => {
+        dispatch(requestUsers(currentPage, pageSize, filter))
+    }, [currentPage, pageSize, filter,dispatch])
 
     return (
         <div>
