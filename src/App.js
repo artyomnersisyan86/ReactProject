@@ -2,7 +2,7 @@ import './App.css';
 import Navbar from "./components/navbar/Navbar";
 import React from "react";
 import {Route} from "react-router-dom"
-import UsersContainer from "./components/users/UsersContainer";
+// import UsersContainer from "./components/users/UsersContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
 import {connect, Provider} from "react-redux";
 import {initializedApp} from "./redux/appReducer";
@@ -12,6 +12,7 @@ import {withRouter} from "react-router-dom";
 import {withSuspense} from "./components/hoc/withSunpense";
 import store from "./redux/redux-store";
 import {BrowserRouter, Switch, Redirect} from "react-router-dom"
+import {UsersPage} from "./components/users/UsersContainer";
 
 const ProfileContainer = React.lazy(() => import("./components/profile/ProfileContainer"));
 const DialogsContainer = React.lazy(() => import("./components/dialogs/DialogsContainer"));
@@ -51,7 +52,7 @@ class App extends React.Component {
                         <Route path='/music' render={withSuspense(Music)}/>
                         {/*<Route path='/settings' render={() => <Settings/>}/>*/}
                         <Route path='/settings' render={withSuspense(Settings)}/>
-                        <Route path='/users' render={() => <UsersContainer pageTitle={"Hello"}/>}/>
+                        <Route path='/users' render={() => <UsersPage pageTitle={"Hello"}/>}/>
                         {/*<Route path='*' render={() => <div>Error 404</div>}/>*/}
 
                     </Switch>
