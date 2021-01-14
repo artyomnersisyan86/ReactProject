@@ -10,8 +10,8 @@ const instance = axios.create({
 })
 
 export const usersApi = {
-    getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage} & count =${pageSize}`,
+    getUsers(currentPage: number, pageSize: number, term: string = "", friend: undefined | boolean = undefined) {
+        return instance.get(`users?page=${currentPage} & count =${pageSize}&term=${term}&friend=${friend}`,
         ).then(response => {
             return response.data
         })
@@ -32,13 +32,14 @@ type LoginResponseType = {
     data: {
         userId: number,
     }
-    resultCode: ResultCodeEnum|ResultCodeForCaptchaEnum
+    resultCode: ResultCodeEnum | ResultCodeForCaptchaEnum
     messages: Array<string>
 }
 
 export enum ResultCodeForCaptchaEnum {
     CaptchaIsRequired = 10
 }
+
 export enum ResultCodeEnum {
     Success = 0,
     Error = 1,
@@ -52,7 +53,7 @@ export const authAPI = {
         })
     },
     login(email: string, password: string, rememberMe = false, captcha: null | string = null) {
-        return instance.post<LoginResponseType>(`auth/login`, {email, password, rememberMe, captcha}).then(response=>{
+        return instance.post<LoginResponseType>(`auth/login`, {email, password, rememberMe, captcha}).then(response => {
             return response.data
         })
     },
