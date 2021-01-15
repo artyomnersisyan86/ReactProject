@@ -1,0 +1,9 @@
+.userPhoto {
+    width: 30px;
+    height: 30px;
+}
+
+.chatPageScroll {
+    height: 600px;
+    overflowY: auto
+}

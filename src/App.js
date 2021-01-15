@@ -1,24 +1,22 @@
 import './App.css';
 import 'antd/dist/antd.css';
-import Navbar from "./components/navbar/Navbar";
 import React from "react";
-import { Route } from "react-router-dom"
+import {BrowserRouter, Link, Redirect, Route, Switch, withRouter} from "react-router-dom"
 // import UsersContainer from "./components/users/UsersContainer";
-import HeaderContainer from "./components/header/HeaderContainer";
-import { connect, Provider } from "react-redux";
-import { initializedApp } from "./redux/appReducer";
+import {connect, Provider} from "react-redux";
+import {initializedApp} from "./redux/appReducer";
 import Preloader from "./components/common/preloader/Preloader";
-import { compose } from "redux"
-import { withRouter } from "react-router-dom";
-import { withSuspense } from "./components/hoc/withSunpense";
+import {compose} from "redux"
+import {withSuspense} from "./components/hoc/withSunpense";
 import store from "./redux/redux-store";
-import { BrowserRouter, Switch, Redirect, Link } from "react-router-dom"
-import { UsersPage } from "./components/users/UsersContainer";
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import s from "./components/navbar/Navbar.module.css";
+import {UsersPage} from "./components/users/UsersContainer";
+import {Layout, Menu} from 'antd';
+import {LaptopOutlined, UserOutlined} from '@ant-design/icons';
+import {AppHeader} from "./components/header/Header";
+// import ChatPage from "./pages/Chat/Chat";
 
 const ProfileContainer = React.lazy(() => import("./components/profile/ProfileContainer"));
+const ChatPage = React.lazy(() => import("./components/pages/Chat/Chat"));
 const DialogsContainer = React.lazy(() => import("./components/dialogs/DialogsContainer"));
 const News = React.lazy(() => import("./components/news/News"));
 const Music = React.lazy(() => import("./components/music/Music"));
@@ -42,16 +40,9 @@ class App extends React.Component {
         return (
             <div>
                 <Layout>
-                    <HeaderContainer/>
-                    {/*<Header className="header">*/}
-                    {/*    <div className="logo"/>*/}
-                    {/*    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>*/}
-                    {/*        <Menu.Item key="1">nav 1</Menu.Item>*/}
-                    {/*        <Menu.Item key="2">nav 2</Menu.Item>*/}
-                    {/*        <Menu.Item key="3">nav 3</Menu.Item>*/}
-                    {/*    </Menu>*/}
-                    {/*</Header>*/}
-                    <Content style={{padding: '0 50px'}}>
+                    <AppHeader/>
+
+                    <Content style={{padding: '0 5px'}}>
                         {/*<Breadcrumb style={{margin: '16px 0'}}>*/}
                         {/*    <Breadcrumb.Item>Home</Breadcrumb.Item>*/}
                         {/*    <Breadcrumb.Item>List</Breadcrumb.Item>*/}
@@ -59,17 +50,19 @@ class App extends React.Component {
                         {/*</Breadcrumb>*/}
                         <Layout className="site-layout-background" style={{padding: '24px 0'}}>
                             <Sider className="site-layout-background" width={200}>
-                                <Menu
-                                    mode="inline"
+                                <Menu mode="inline"
                                     // defaultSelectedKeys={['1']}
                                     // defaultOpenKeys={['sub1']}
                                     style={{height: '100%'}}>
-                                    <SubMenu key="sub1" icon={<UserOutlined/>} title="My Profile">
-                                        <Menu.Item key="1"><Link to='/profile'> Profile</Link></Menu.Item>
-                                        <Menu.Item key="2"><Link to='/dialogs'> Messges</Link></Menu.Item>
+                                    <SubMenu  icon={<UserOutlined/>} title="My Profile">
+                                        <Menu.Item ><Link to='/profile'> Profile</Link></Menu.Item>
+                                        <Menu.Item ><Link to='/dialogs'> Messages</Link></Menu.Item>
                                     </SubMenu>
-                                    <SubMenu key="sub2" icon={<LaptopOutlined/>} title="Developers">
-                                        <Menu.Item key="5"><Link to='/users'> Users</Link></Menu.Item>
+                                    <SubMenu  icon={<LaptopOutlined/>} title="Developers">
+                                        <Menu.Item ><Link to='/users'> Users</Link></Menu.Item>
+                                    </SubMenu>
+                                    <SubMenu  icon={<LaptopOutlined/>} title="Chat">
+                                        <Menu.Item ><Link to='/chat'> Chat Page</Link></Menu.Item>
                                     </SubMenu>
                                 </Menu>
                             </Sider>
@@ -83,19 +76,20 @@ class App extends React.Component {
                                     <Route path='/dialogs' render={withSuspense(DialogsContainer)}/>
                                     {/*<Route path='/news' render={() => <News/>}/>*/}
                                     <Route path='/news' render={withSuspense(News)}/>
+                                    <Route path='/chat' render={withSuspense(ChatPage)}/>
                                     <Route path='/login' render={withSuspense(Login)}/>
 
                                     {/*<Route path='/music' render={() => <Music/>}/>*/}
                                     <Route path='/music' render={withSuspense(Music)}/>
                                     {/*<Route path='/settings' render={() => <Settings/>}/>*/}
                                     <Route path='/settings' render={withSuspense(Settings)}/>
-                                    <Route path='/users' render={() => <UsersPage pageTitle={"Hello"}/>}/>
+                                    <Route path='/users' render={() => <UsersPage pageTitle={"Developers Page"}/>}/>
                                     {/*<Route path='*' render={() => <div>Error 404</div>}/>*/}
                                 </Switch>
                             </Content>
                         </Layout>
                     </Content>
-                    <Footer style={{textAlign: 'center'}}>Ant Design ©2018 Created by Ant UED</Footer>
+                    <Footer style={{textAlign: 'center'}}> ©2021 Created by Nersisyan Prodaction</Footer>
                 </Layout>
             </div>
             // <div className='app-wrapper'>
